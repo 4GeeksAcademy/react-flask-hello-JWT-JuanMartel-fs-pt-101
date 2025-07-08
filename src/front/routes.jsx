@@ -9,6 +9,10 @@ import { Layout } from "./pages/Layout";
 import { Home } from "./pages/Home";
 import { Single } from "./pages/Single";
 import { Demo } from "./pages/Demo";
+import { Login } from "./components/Login.jsx";
+import { PrivateRoute } from "./components/PrivateRoute.jsx";
+import { PrivateView } from "./components/PrivateView.jsx";
+
 
 export const router = createBrowserRouter(
     createRoutesFromElements(
@@ -25,6 +29,9 @@ export const router = createBrowserRouter(
         <Route path= "/" element={<Home />} />
         <Route path="/single/:theId" element={ <Single />} />  {/* Dynamic route for single items */}
         <Route path="/demo" element={<Demo />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/private" element={<PrivateRoute> <PrivateView /> </PrivateRoute> } />
+
       </Route>
     )
 );
