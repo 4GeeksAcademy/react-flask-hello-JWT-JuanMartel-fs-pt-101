@@ -1,60 +1,68 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export function Login() {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-    const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     try {
-    const response = await fetch("https://congenial-enigma-4jwpr5rj495whq666-3001.app.github.dev/api/login", { 
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      }),
-    });
+      const response = await fetch("https://congenial-enigma-4jwpr5rj495whq666-3001.app.github.dev/api/login", { 
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      });
 
-    if (!response.ok) {
-      throw new Error("Login Failed");
+      if (!response.ok) {
+        throw new Error("Login Failed");
+      }
+
+      const data = await response.json(); 
+      const token = data.access_token;
+
+      if (token) {
+        sessionStorage.setItem("token", token);
+        console.log("Login exitoso, token guardado:", token);
+
+        navigate("/private");
+      }
+
+    } catch (error) {
+      console.error("Error en login:", error.message);
     }
-
-    const data = await response.json(); 
-    const token = data.access_token;
-
-    if (token) {
-      sessionStorage.setItem("token", token);
-      console.log("Login exitoso, token guardado:", token);
-
-      // Redireccionar a ruta privada :
-      // window.location.href = "/private";
-    }
-
-  } catch (error) {
-    console.error("Error en login:", error.message);
-  }
-};
-
+  };
 
   return (
-    <div>
-      <h2>Login</h2>
+    <div className="container mt-5" style={{ maxWidth: "400px" }}>
+      <h2 className="mb-4 text-center">Login</h2>
       <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          placeholder="Correo"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)} 
-        /><br/>
-        <input
-          type="password"
-          placeholder="Contraseña"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        /><br/>
-        <button type="submit">Iniciar sesión</button>
+        <div className="mb-3">
+          <input
+            type="email"
+            className="form-control"
+            placeholder="E-mail"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)} 
+            required
+          />
+        </div>
+        <div className="mb-3">
+          <input
+            type="password"
+            className="form-control"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+        <button type="submit" className="btn btn-primary w-100">Login</button>
       </form>
     </div>
   );

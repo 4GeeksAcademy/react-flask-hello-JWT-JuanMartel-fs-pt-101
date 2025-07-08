@@ -12,6 +12,8 @@ import { Demo } from "./pages/Demo";
 import { Login } from "./components/Login.jsx";
 import { PrivateRoute } from "./components/PrivateRoute.jsx";
 import { PrivateView } from "./components/PrivateView.jsx";
+import { Signup } from "./components/Signup.jsx"; 
+
 
 
 export const router = createBrowserRouter(
@@ -29,6 +31,7 @@ export const router = createBrowserRouter(
         <Route path= "/" element={<Home />} />
         <Route path="/single/:theId" element={ <Single />} />  {/* Dynamic route for single items */}
         <Route path="/demo" element={<Demo />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/private" element={<PrivateRoute> <PrivateView /> </PrivateRoute> } />
 

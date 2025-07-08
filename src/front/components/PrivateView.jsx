@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import "../styles/PrivateView.css";
+import { LogoutButton } from "./Logout.jsx";
+
+
 export function PrivateView() {
     const [data, setData] = useState(null);
 
@@ -42,6 +45,10 @@ export function PrivateView() {
             ) : (
                 <p>Cargando</p>
             )}
+            <div className="mt-3">
+      <LogoutButton className="btn btn-danger " />
+    </div>
+
         </div>
     );
 }

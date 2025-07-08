@@ -1,16 +1,16 @@
 import { useNavigate } from "react-router-dom";
 
-export function LogoutButton() {
+export function LogoutButton({ className }) {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    sessionStorage.removeItem("token"); // Borra el token
-    navigate("/login"); // Redirige al login
+    sessionStorage.removeItem("token");
+    navigate("/login");
   };
 
   return (
-    <button onClick={handleLogout} className="btn btn-danger">
-      Cerrar sesión
+    <button onClick={handleLogout} className={className}>
+      Log out
     </button>
   );
-}   
+}
